@@ -590,8 +590,12 @@ open class LineChartRenderer: LineRadarRenderer
                 (dataSet.circleHoleColor == nil ||
                     dataSet.circleHoleColor == NSUIColor.clear)
             
+            var isFirstCircleDrawed = false
             for j in _xBounds
             {
+                if isFirstCircleDrawed {
+                    return
+                }
                 guard let e = dataSet.entryForIndex(j) else { break }
 
                 pt.x = CGFloat(e.x)
@@ -677,6 +681,7 @@ open class LineChartRenderer: LineRadarRenderer
                         context.fillEllipse(in: rect)
                     }
                 }
+                isFirstCircleDrawed = true
             }
         }
         
